@@ -5,17 +5,37 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.TextureView;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.TextView;
 import br.com.devmedia.service.LocationService;
 
 public class MainActivity extends Activity implements LocationListener {
 
 	private LocationService locationService;
+	private TextView currentLocation;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		this.locationService = new LocationService(this, this);
+		this.currentLocation = (TextView) findViewById(R.id.current_location);
+		lasGpsButtonPrepare();
+	}
+
+	private void lasGpsButtonPrepare() {
+		Button lastGps = (Button) findViewById(R.id.last_gps);
+		lastGps.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				currentLocation.setText(locationService
+						.getLastKnownLocationGPS().toString());
+			}
+		});
 	}
 
 	@Override
