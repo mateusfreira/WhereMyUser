@@ -14,15 +14,49 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:text="@string/hello_world" />
+        android:text="Lcalização corrente" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/last_gps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/current_location"
         android:layout_marginTop="68dp"
-        android:text="Button" />
+        android:text="Ultimo GPS" />
+
+    <Button
+        android:id="@+id/last_network"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/last_gps"
+        android:layout_alignBottom="@+id/last_gps"
+        android:layout_alignRight="@+id/current_location"
+        android:text="Ultimo REDE" />
+
+    <Button
+        android:id="@+id/update_gps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/last_gps"
+        android:layout_centerVertical="true"
+        android:text="GPS Por tempo" />
+
+    <Button
+        android:id="@+id/update_network"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/last_network"
+        android:layout_centerVertical="true"
+        android:text="REDE p/ t" />
+
+    <Button
+        android:id="@+id/update_passive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/update_gps"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="51dp"
+        android:text="Passivo por tempo" />
 
 </RelativeLayout>
