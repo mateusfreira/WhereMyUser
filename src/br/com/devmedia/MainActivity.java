@@ -24,6 +24,7 @@ public class MainActivity extends Activity implements LocationListener {
 		this.locationService = new LocationService(this, this);
 		this.currentLocation = (TextView) findViewById(R.id.current_location);
 		lasGpsButtonPrepare();
+		lasNetworkButtonPrepare();
 	}
 
 	private void lasGpsButtonPrepare() {
@@ -34,6 +35,18 @@ public class MainActivity extends Activity implements LocationListener {
 			public void onClick(View arg0) {
 				currentLocation.setText(locationService
 						.getLastKnownLocationGPS().toString());
+			}
+		});
+	}
+
+	private void lasNetworkButtonPrepare() {
+		Button lastGps = (Button) findViewById(R.id.last_network);
+		lastGps.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				currentLocation.setText(locationService
+						.getLastKnownLocationNetwork().toString());
 			}
 		});
 	}
