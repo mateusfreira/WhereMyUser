@@ -9,10 +9,12 @@ public class LocationService {
 	private LocationManager locationManager;
 	private Context context;
 	private LocationListener listener;
+	private long minTimeBetweenLocations = 5 * 60 * 1000;
 
 	public LocationService(Context context, LocationListener locationListener) {
 		this.context = context;
-		this.locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+		this.locationManager = (LocationManager) context
+				.getSystemService(Context.LOCATION_SERVICE);
 		this.listener = locationListener;
 	}
 
@@ -27,19 +29,28 @@ public class LocationService {
 	}
 
 	public void startGpsLocationCapture() {
-		stop();
-		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,
-				0, listener);
+		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
+				minTimeBetweenLocations, 0, listener);
 	}
 
 	public void startNetworkLocationCapture() {
 		locationManager.requestLocationUpdates(
-				LocationManager.NETWORK_PROVIDER, 0, 0, listener);
+				LocationManager.NETWORK_PROVIDER, minTimeBetweenLocations, 0,
+				listener);
 	}
 
 	public void startPassiveLocationCapture() {
 		locationManager.requestLocationUpdates(
-				LocationManager.PASSIVE_PROVIDER, 0, 0, listener);
+				LocationManager.PASSIVE_PROVIDER, minTimeBetweenLocations, 0,
+				listener);
+	}
+
+	public long getMinTimeBetweenLocations() {
+		return minTimeBetweenLocations;
+	}
+
+	public void setMinTimeBetweenLocations(long minTimeBetweenLocations) {
+		this.minTimeBetweenLocations = minTimeBetweenLocations;
 	}
 
 }
