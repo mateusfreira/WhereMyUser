@@ -53,4 +53,8 @@ public class LocationService {
 		this.minTimeBetweenLocations = minTimeBetweenLocations;
 	}
 
+	public void stop() {
+		locationManager.removeUpdates(listener);
+	}
+
 }
