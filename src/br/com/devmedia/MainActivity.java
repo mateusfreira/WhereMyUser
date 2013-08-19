@@ -22,30 +22,90 @@ public class MainActivity extends Activity implements LocationListener {
 		setContentView(R.layout.activity_main);
 		this.locationService = new LocationService(this, this);
 		this.currentLocation = (TextView) findViewById(R.id.current_location);
-		lasGpsButtonPrepare();
-		lasNetworkButtonPrepare();
+		lastGpsButtonPrepare();
+		lastNetworkButtonPrepare();
+
+		updateGpsButtonPrepare();
+		updateNetworkButtonPrepare();
+		updatePassiveButtonPrepare();
+
+		stopButtonPrepare();
 	}
 
-	private void lasGpsButtonPrepare() {
-		Button lastGps = (Button) findViewById(R.id.last_gps);
-		lastGps.setOnClickListener(new OnClickListener() {
+	private void stopButtonPrepare() {
+		Button button = (Button) findViewById(R.id.stop);
+		button.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
-				currentLocation.setText(locationService
-						.getLastKnownLocationGPS().toString());
+				locationService.stop();
+				currentLocation.setText("");
 			}
 		});
 	}
 
-	private void lasNetworkButtonPrepare() {
-		Button lastGps = (Button) findViewById(R.id.last_network);
-		lastGps.setOnClickListener(new OnClickListener() {
+	private void updatePassiveButtonPrepare() {
+		Button button = (Button) findViewById(R.id.update_network);
+		button.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
-				currentLocation.setText(locationService
-						.getLastKnownLocationNetwork().toString());
+				locationService.startPassiveLocationCapture();
+			}
+		});
+	}
+
+	private void updateNetworkButtonPrepare() {
+		Button button = (Button) findViewById(R.id.update_gps);
+		button.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				locationService.startGpsLocationCapture();
+			}
+		});
+	}
+
+	private void updateGpsButtonPrepare() {
+		Button button = (Button) findViewById(R.id.update_network);
+		button.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				locationService.startNetworkLocationCapture();
+			}
+		});
+	}
+
+	private void lastGpsButtonPrepare() {
+		Button button = (Button) findViewById(R.id.last_gps);
+		button.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				Location location = locationService.getLastKnownLocationGPS();
+				if (location != null) {
+					currentLocation.setText(location.toString());
+				} else {
+					currentLocation.setText("Não localização valida!");
+				}
+			}
+		});
+	}
+
+	private void lastNetworkButtonPrepare() {
+		Button button = (Button) findViewById(R.id.last_network);
+		button.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				Location location = locationService
+						.getLastKnownLocationNetwork();
+				if (location != null) {
+					currentLocation.setText(location.toString());
+				} else {
+					currentLocation.setText("Não localização valida!");
+				}
 			}
 		});
 	}
